@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tasks</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main class="window">
+    <header>
+      <h1>My Tasks</h1>
+      <p id="task-count" class="subtitle">No tasks yet</p>
+    </header>
+
+    <form id="task-form">
+      <input id="task-input" type="text" placeholder="Add a task" autocomplete="off">
+
+      <select id="priority">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <button type="submit">Add</button>
+    </form>
+
+    <p id="error-message" class="error-message"></p>
+
+    <section class="list-card">
+      <div id="task-list"></div>
+      <p id="empty-message" class="empty-message">Nothing here yet. Add a task above.</p>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+</html>
