@@ -3,36 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Tasks</title>
+  <title>TaskList</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <main class="window">
-    <header>
-      <h1>My Tasks</h1>
-      <p id="task-count" class="subtitle">No tasks yet</p>
-    </header>
+  <header class="site-header">
+    <div class="logo">
+      <span class="logo-icon">&#10003;</span>
+      <span class="logo-text">TaskList</span>
+    </div>
+  </header>
 
-    <form id="task-form">
-      <input id="task-input" type="text" placeholder="Add a task" autocomplete="off">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">Your day, organized.</p>
+      <h1>Focus on what<br><span class="accent">matters next.</span></h1>
+    </div>
+  </section>
 
-      <select id="priority">
-        <option value="low">Low</option>
-        <option value="medium" selected>Medium</option>
-        <option value="high">High</option>
-      </select>
+  <section class="app-grid">
 
-      <button type="submit">Add</button>
-    </form>
+    <div class="card">
+      <div class="card-top">
+        <p class="eyebrow">New task</p>
+      </div>
+      <h2>Add something to your list</h2>
 
-    <p id="error-message" class="error-message"></p>
+      <form id="task-form">
+        <label for="task-input">Task name</label>
+        <input id="task-input" type="text" placeholder="What needs to get done?" autocomplete="off">
 
-    <section class="list-card">
+        <label for="priority">Priority</label>
+        <div class="form-row">
+          <select id="priority">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <button type="submit">Add Task</button>
+        </div>
+
+        <p id="error-message" class="error-message"></p>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <p class="eyebrow">Your tasks</p>
+        <span id="task-count">0 tasks</span>
+      </div>
+      <h2>Today</h2>
+
+      <div class="progress-track">
+        <div id="progress-fill" class="progress-fill"></div>
+      </div>
+      <p id="status-text" class="status-text">Nothing started yet</p>
+
       <div id="task-list"></div>
-      <p id="empty-message" class="empty-message">Nothing here yet. Add a task above.</p>
-    </section>
-  </main>
+
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">&#10003;</div>
+        <p class="empty-title">Your list is clear.</p>
+        <p class="empty-desc">Add your first task above to get started.</p>
+      </div>
+    </div>
+
+  </section>
 
   <script src="script.js" defer></script>
 </body>

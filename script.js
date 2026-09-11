@@ -3,9 +3,11 @@ const form = document.querySelector("#task-form");
 const taskInput = document.querySelector("#task-input");
 const priorityInput = document.querySelector("#priority");
 const taskList = document.querySelector("#task-list");
-const listCard = document.querySelector(".list-card");
+const emptyState = document.querySelector("#empty-state");
 const errorMessage = document.querySelector("#error-message");
 const taskCount = document.querySelector("#task-count");
+const progressFill = document.querySelector("#progress-fill");
+const statusText = document.querySelector("#status-text");
 
 // ===== Step 2: Store tasks =====
 // Each task is an object with a name, priority, and completion status.
@@ -49,9 +51,9 @@ function displayTasks() {
   taskList.innerHTML = "";
 
   if (tasks.length === 0) {
-    listCard.classList.add("is-empty");
+    emptyState.classList.add("is-visible");
   } else {
-    listCard.classList.remove("is-empty");
+    emptyState.classList.remove("is-visible");
   }
 
   for (let i = 0; i < tasks.length; i++) {
@@ -67,7 +69,7 @@ function displayTasks() {
     const checkButton = document.createElement("button");
     checkButton.type = "button";
     checkButton.className = "check-btn";
-    checkButton.textContent = task.completed ? "✓" : "";
+    checkButton.textContent = task.completed ? "\u2713" : "";
     checkButton.addEventListener("click", function () {
       toggleComplete(task.id);
     });
@@ -104,24 +106,36 @@ function displayTasks() {
     taskList.appendChild(taskElement);
   }
 
-  updateTaskCount();
+  updateSummary();
 }
 
-// ===== Step 6: Update the task counter text =====
-function updateTaskCount() {
-  if (tasks.length === 0) {
-    taskCount.textContent = "No tasks yet";
-    return;
-  }
+// ===== Step 6: Update the counter, progress bar, and status text =====
+function updateSummary() {
+  const total = tasks.length;
 
-  let remaining = 0;
+  let completedCount = 0;
   for (let i = 0; i < tasks.length; i++) {
-    if (!tasks[i].completed) {
-      remaining = remaining + 1;
+    if (tasks[i].completed) {
+      completedCount = completedCount + 1;
     }
   }
 
-  taskCount.textContent = remaining + " task(s) remaining";
+  taskCount.textContent = total + (total === 1 ? " task" : " tasks");
+
+  if (total === 0) {
+    progressFill.style.width = "0%";
+    statusText.textContent = "Nothing started yet";
+    return;
+  }
+
+  const percent = Math.round((completedCount / total) * 100);
+  progressFill.style.width = percent + "%";
+
+  if (completedCount === total) {
+    statusText.textContent = "All tasks completed";
+  } else {
+    statusText.textContent = completedCount + " of " + total + " completed";
+  }
 }
 
 // ===== Step 7: Complete a task =====
@@ -148,5 +162,5 @@ function deleteTask(id) {
   }
 }
 
-// Initial render (shows the "no tasks yet" state).
+// Initial render (shows the empty state).
 displayTasks();
