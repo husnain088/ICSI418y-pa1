@@ -41,6 +41,7 @@ form.addEventListener("submit", function (event) {
   // Reset the form for the next entry.
   taskInput.value = "";
   priorityInput.value = "medium";
+  taskInput.focus();
 
   displayTasks();
 });
@@ -70,6 +71,10 @@ function displayTasks() {
     checkButton.type = "button";
     checkButton.className = "check-btn";
     checkButton.textContent = task.completed ? "\u2713" : "";
+    checkButton.setAttribute(
+      "aria-label",
+      task.completed ? "Mark as not completed" : "Mark as completed"
+    );
     checkButton.addEventListener("click", function () {
       toggleComplete(task.id);
     });
